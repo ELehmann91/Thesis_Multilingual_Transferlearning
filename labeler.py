@@ -14,7 +14,7 @@ path ='/content/gdrive/My Drive/Thesis_ecb_ecoicop'
 with open(path+'/data/label_cc_dict.json') as json_file:#
     label_cc_dict = json.load(json_file)
     
-class labeler2:
+class labeler:
     '''
     This object takes a dataframe of web scraped product data as input and displays the prediction of unlabeld data in a dropdown. 
     The user can accept or edit the prediction and save the label.
