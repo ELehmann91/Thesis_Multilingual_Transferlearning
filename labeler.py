@@ -61,6 +61,7 @@ class labeler:
         self.new_labels = {}
         
     def init_widget(self):
+        self.idx_widget1 = widgets.Text(value=self.idx, description='Index:',layout=Layout(width='80%', height='40px'), disabled=False)
         self.text_widget1 = widgets.Text(value=self.text_orig, description='Source text:',layout=Layout(width='80%', height='40px'), disabled=False)
         self.text_widget2 = widgets.Text(value=self.text_trans, description='Translated text:',layout=Layout(width='80%', height='40px'), disabled=False)
         self.dd_cc3 = widgets.Dropdown(options=self.labels3, value=self.cc3, description='COICOP 3:',layout=Layout(width='41%', height='30px'),  disabled=False) #, continuous_update=True
@@ -85,6 +86,7 @@ class labeler:
         self.cc4 = self.df['cc4_pred'].loc[self.idx]
         self.cc5 = self.df['cc5_pred'].loc[self.idx]
         self.link = self.df[self.url_str].loc[self.idx]
+        self.idx_widget1.value = self.idx
         self.text_widget1.value = self.text_orig
         self.text_widget2.value = self.text_trans
         self.dd_cc3.value = self.cc3
@@ -98,7 +100,7 @@ class labeler:
         items_0 = [self.button_next, self.output_next,self.button_save, self.output_save,self.button_link, self.output_link]
         box_auto = Box(children=items_auto, layout=Layout(display='flex',flex_flow='column', align_items='stretch', align_content='center', width='80%'))
         box_0 = Box(children=items_0, layout=Layout(display='flex',flex_flow='row', align_items='stretch', align_content='center', width='80%'))
-        display(VBox([self.text_widget1,self.text_widget2,box_auto, box_0]))
+        display(VBox([self.idx_widget1,self.text_widget1,self.text_widget2,box_auto, box_0]))
       
     def output_labels(self):
 
