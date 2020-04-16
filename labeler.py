@@ -27,7 +27,7 @@ class labeler:
         self.url_str = url_str
         self.sortby = sortby
         self.df = df.reset_index(drop=True) 
-        self.df = df.sort_values(self.sortby,ascending=FALSE)
+        self.df = df.sort_values(self.sortby,ascending=False)
         if 'labeled_by' not in df.columns:
             self.df['labeled_by'] = None
         self.labels3 = class_dict['cc3']        
