@@ -19,14 +19,15 @@ class labeler:
     This object takes a dataframe of web scraped product data as input and displays the prediction of unlabeld data in a dropdown. 
     The user can accept or edit the prediction and save the label.
     '''
-    def __init__(self,labeled_by, df,text_orig_str='text_orig',text_trans_str='text_trans',url_str='url', class_dict=label_cc_dict):
+    def __init__(self,labeled_by, df,text_orig_str='text_orig',text_trans_str='text_trans',url_str='url', sortby = 'category',class_dict=label_cc_dict):
         self.counter = 0
         self.labeled_by = labeled_by
         self.text_orig_str = text_orig_str
         self.text_trans_str = text_trans_str
         self.url_str = url_str
+        self.sortby = sortby
         self.df = df.reset_index(drop=True) 
-        self.df = df.sort_values('cc5_pred')
+        self.df = df.sort_values(self.sortby)
         if 'labeled_by' not in df.columns:
             self.df['labeled_by'] = None
         self.labels3 = class_dict['cc3']        
