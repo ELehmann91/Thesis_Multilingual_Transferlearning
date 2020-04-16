@@ -86,7 +86,7 @@ class labeler:
         self.cc4 = self.df['cc4_pred'].loc[self.idx]
         self.cc5 = self.df['cc5_pred'].loc[self.idx]
         self.link = self.df[self.url_str].loc[self.idx]
-        self.idx_widget1.value = self.idx
+        self.idx_widget1.value = str(self.idx)
         self.text_widget1.value = self.text_orig
         self.text_widget2.value = self.text_trans
         self.dd_cc3.value = self.cc3
