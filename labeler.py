@@ -61,7 +61,7 @@ class labeler:
         self.new_labels = {}
         
     def init_widget(self):
-        self.idx_widget1 = widgets.Text(value=self.idx, description='Index:',layout=Layout(width='80%', height='40px'), disabled=False)
+        self.idx_widget1 = widgets.Text(value=str(self.idx), description='Index:',layout=Layout(width='80%', height='40px'), disabled=False)
         self.text_widget1 = widgets.Text(value=self.text_orig, description='Source text:',layout=Layout(width='80%', height='40px'), disabled=False)
         self.text_widget2 = widgets.Text(value=self.text_trans, description='Translated text:',layout=Layout(width='80%', height='40px'), disabled=False)
         self.dd_cc3 = widgets.Dropdown(options=self.labels3, value=self.cc3, description='COICOP 3:',layout=Layout(width='41%', height='30px'),  disabled=False) #, continuous_update=True
