@@ -27,8 +27,8 @@ def balanced_train_test_split(X,y,by):
     # upsample
     max_cat_cnt = df_train[by].value_counts()[0]
     for categ in df_train[by].unique():
-        df_sample = df_train[df_train.cat5==categ]
-        df_train = df_train[df_train.cat5!=categ]
+        df_sample = df_train[df_train[by]==categ]
+        df_train = df_train[df_train[by]!=categ]
         no_ = len(df_sample)
         df_minority_upsampled = resample(df_sample, 
                                       replace=True,     # sample with replacement
