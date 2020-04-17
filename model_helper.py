@@ -66,13 +66,17 @@ class text_to_embed(object):
     '''
     def __init__(self
                  , text = None
-                 , embed = None
+                 , lang = None
+                 , embed_de = None
+                 , embed_fr = None
                  , seq_len = None
                  , rep_dict = rep_dict
                  , embedding_dim=300):
                  
         self.text = text
-        self.embed = embed
+        self.lang = lang
+        self.embed_de = embed_de
+        self.embed_fr = embed_fr
         self.seq_len = seq_len
         self.rep_dict = rep_dict
         self.embedding_dim = embedding_dim
@@ -85,13 +89,16 @@ class text_to_embed(object):
         text_str = re.sub('[^a-zäöüàáéèêß]+', ' ', text_str)
         return text_str
 
-    def t2s(self,line):
+    def t2s(self,line,la):
         #tokens = []
         sen_embed = np.zeros((self.embedding_dim,self.seq_len))
         words = line.split()
         for w in range(0,self.seq_len):
             try: 
-              emb = self.embed[words[w]]
+              if la == 'de':
+                  emb = self.embed_de[words[w]]
+              elif la == 'fr':
+                  emb = self.embed_fr[words[w]]
             except:
               emb = np.zeros(self.embedding_dim)
             #tokens.append(tok)
@@ -101,9 +108,9 @@ class text_to_embed(object):
         return sen_embed #np.array(tokens)
 
     def __iter__(self):
-        for line in tqdm(self.text):
+        for line,la in tqdm(zip(self.text,self.lang)):
             line = self.prepro(line)
-            line = self.t2s(line)
+            line = self.t2s(line,la)
             yield line
             
 
