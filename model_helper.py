@@ -2,6 +2,7 @@ from tqdm import tqdm
 import numpy as np
 import re
 import json
+import pandas as pd
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from sklearn.utils import resample
