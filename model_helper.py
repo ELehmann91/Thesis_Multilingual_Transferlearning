@@ -125,6 +125,9 @@ def text_to_model_input(embeded,model=new_model,label_dict=label_cc_dict):
     labels3 = label_dict['cc3']
     labels4 = label_dict['cc4']
     labels5 = label_dict['cc5']
+    labels3.append('99_Non-Food')       
+    labels4.append('999_Non-Food')
+    labels5.append('9999_Non-Food')
     labels3.sort()
     labels4.sort()
     labels5.sort()
