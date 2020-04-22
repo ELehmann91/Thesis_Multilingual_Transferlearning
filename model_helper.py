@@ -15,8 +15,8 @@ class prepare_df(object):
     '''
     takes dataframe and columns names and outputs  standardized dataframe
     '''
-    def __init__(self, df_in = None, lang = None, name = None, categ = None, prod_desc = None, text_other = None, url = None
-                 , unit = None, cc3 = None, cc4 = None, cc5 = None, shop = None, price=None, id = None, labeld_by = None, coicop_dic = {}):
+    def __init__(self, df_in = None, lang = None, name = None, categ = None, prod_desc = None, text_other = None, url = None, unit = None
+                 , cc3 = None, cc4 = None, cc5 = None, shop = None, brand=None, price=None, id = None, labeld_by = None, coicop_dic = {}):
         self.df_in = df_in
         self.df_in['lang'] = lang
         self.lang = 'lang'
@@ -30,6 +30,7 @@ class prepare_df(object):
         self.cc4 = cc4
         self.cc5 = cc5
         self.shop = shop
+        self.brand = brand
         self.price = price
         self.id = id
         self.labeld_by = labeld_by
