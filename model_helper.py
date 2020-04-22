@@ -16,7 +16,7 @@ class prepare_df(object):
     takes dataframe and columns names and outputs  standardized dataframe
     '''
     def __init__(self, df_in = None, lang = None, name = None, categ = None, prod_desc = None, text_other = None, url = None
-                 , unit = None, cc3 = None, cc4 = None, cc5 = None, shop = None, id = None, labeld_by = None, coicop_dic = coicop_dic):
+                 , unit = None, cc3 = None, cc4 = None, cc5 = None, shop = None, price=None, id = None, labeld_by = None, coicop_dic = {}):
         self.df_in = df_in
         self.df_in['lang'] = lang
         self.lang = 'lang'
@@ -30,10 +30,11 @@ class prepare_df(object):
         self.cc4 = cc4
         self.cc5 = cc5
         self.shop = shop
+        self.price = price
         self.id = id
         self.labeld_by = labeld_by
         self.coicop_dic = coicop_dic
-        self.rep_dict = {'.':' ', ',': ' ', '&': ' ', '-': ' ', '/': ' '  }
+        self.rep_dict = {'.':' ', ',': ' ', '&': ' ', '-': ' ', '/': ' ','|':' '  }
 
     def parse_url(self,url):
         url_list = str(url).split('/')[3:]
@@ -53,12 +54,15 @@ class prepare_df(object):
                 elif attr == 'url':
                     df_out[attr] =              self.df_in[value].fillna('unknown')
                     df_out['words_from_url'] =  self.df_in[value].apply(lambda x: self.parse_url(x))
+                elif attr == 'categ':
+                    df_out[attr] =              self.df_in[value].apply(lambda x: str(x).replace('|',' ').replace('/',' '))
                 else: 
                     df_out[attr] =              self.df_in[value].fillna('unknown')
             elif value is None:
-                df_out[attr] =                  None
+                df_out[attr] =                  NaN
 
         return df_out
+
 
     
 def balanced_train_test_split(X,y,by):
