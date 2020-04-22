@@ -59,7 +59,7 @@ class prepare_df(object):
                 else: 
                     df_out[attr] =              self.df_in[value].fillna('unknown')
             elif value is None:
-                df_out[attr] =                  NaN
+                df_out[attr] =                  None
 
         return df_out
 
