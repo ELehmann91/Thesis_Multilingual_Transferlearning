@@ -48,9 +48,11 @@ class prepare_df(object):
     def fill_frame(self):
         df_out = pd.DataFrame()
         for attr, value in self.__dict__.items():
-            if isinstance(value, str):
+            if value is None:
+                df_out[attr] =                  None
+            elif isinstance(value, str):
                 if attr in ['cc3','cc4','cc5']:
-                    df_out[attr] =              self.df_in[value].apply(lambda x: str(x)).map(self.coicop_dic)
+                    df_out[attr] =              self.df_in[value].apply(lambda x: '999' if np.isnan(x) else str(int(x))).map(self.coicop_dic)
                 elif attr == 'url':
                     df_out[attr] =              self.df_in[value].fillna('unknown')
                     df_out['words_from_url'] =  self.df_in[value].apply(lambda x: self.parse_url(x))
@@ -58,11 +60,8 @@ class prepare_df(object):
                     df_out[attr] =              self.df_in[value].apply(lambda x: str(x).replace('|',' ').replace('/',' '))
                 else: 
                     df_out[attr] =              self.df_in[value].fillna('unknown')
-            elif value is None:
-                df_out[attr] =                  None
 
         return df_out
-
 
     
 def balanced_train_test_split(X,y,by):
