@@ -53,7 +53,10 @@ class prepare_df(object):
                 df_out[attr] =                  None
             elif isinstance(value, str):
                 if attr in ['cc3','cc4','cc5']:
-                    df_out[attr] =              self.df_in[value].apply(lambda x: '999' if np.isnan(x) else str(int(x))).map(self.coicop_dic)
+                    if len(self.coicop_dic) == 0:
+                        df_out[attr] =              self.df_in[value].fillna('unknown')
+                     else:
+                        df_out[attr] =              self.df_in[value].apply(lambda x: '999' if np.isnan(x) else str(int(x))).map(self.coicop_dic)
                 elif attr == 'url':
                     df_out[attr] =              self.df_in[value].fillna('unknown')
                     df_out['words_from_url'] =  self.df_in[value].apply(lambda x: self.parse_url(x))
