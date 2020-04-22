@@ -7,6 +7,60 @@ import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from sklearn.utils import resample
 
+path ='/content/gdrive/My Drive/Thesis_ecb_ecoicop'
+with open(path+'/data/ecoicop_json.txt') as json_file:#
+    coicop_dic = json.load(json_file)
+    
+class prepare_df(object):
+    '''
+    takes dataframe and columns names and outputs  standardized dataframe
+    '''
+    def __init__(self, df_in = None, lang = None, name = None, categ = None, prod_desc = None, text_other = None, url = None
+                 , unit = None, cc3 = None, cc4 = None, cc5 = None, shop = None, id = None, labeld_by = None, coicop_dic = coicop_dic):
+        self.df_in = df_in
+        self.df_in['lang'] = lang
+        self.lang = 'lang'
+        self.name = name
+        self.categ = categ
+        self.prod_desc = prod_desc
+        self.text_other = text_other
+        self.url = url
+        self.unit = unit
+        self.cc3 = cc3
+        self.cc4 = cc4
+        self.cc5 = cc5
+        self.shop = shop
+        self.id = id
+        self.labeld_by = labeld_by
+        self.coicop_dic = coicop_dic
+        self.rep_dict = {'.':' ', ',': ' ', '&': ' ', '-': ' ', '/': ' '  }
+
+    def parse_url(self,url):
+        url_list = str(url).split('/')[3:]
+        url_str = ' '.join(w for w in url_list).lower()
+        for a,b in self.rep_dict.items():
+            url_str = url_str.replace(a,b)
+        url_str = re.sub('[^a-zäöüàáéèêß]+', ' ', url_str)
+        url_str = ' '.join(w for w in url_str.split() if len(w)>2)
+        return url_str
+    
+    def fill_frame(self):
+        df_out = pd.DataFrame()
+        for attr, value in self.__dict__.items():
+            if isinstance(value, str):
+                if attr in ['cc3','cc4','cc5']:
+                    df_out[attr] =              self.df_in[value].apply(lambda x: str(x)).map(self.coicop_dic)
+                elif attr == 'url':
+                    df_out[attr] =              self.df_in[value].fillna('unknown')
+                    df_out['words_from_url'] =  self.df_in[value].apply(lambda x: self.parse_url(x))
+                else: 
+                    df_out[attr] =              self.df_in[value].fillna('unknown')
+            elif value is None:
+                df_out[attr] =                  None
+
+        return df_out
+
+    
 def balanced_train_test_split(X,y,by):
     X_train, X_val_test, y_train, y_val_test = train_test_split(X
                                                               , y
