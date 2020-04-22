@@ -58,7 +58,7 @@ class prepare_df(object):
             elif isinstance(value, str):
                 if attr in ['cc3','cc4','cc5']:
                     if len(self.coicop_dic) == 0:
-                        df_out[attr] =              self.df_in[value].fillna('unknown')
+                        df_out[attr] =              self.df_in[value]
                     else:
                         df_out[attr] =              self.df_in[value].apply(lambda x: '999' if np.isnan(x) else str(int(x))).map(self.coicop_dic)
                 elif attr == 'url':
