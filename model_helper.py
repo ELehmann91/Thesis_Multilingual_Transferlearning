@@ -60,12 +60,12 @@ class prepare_df(object):
                     if len(self.coicop_dic) == 0:
                         df_out[attr] =              self.df_in[value]
                     else:
-                        df_out[attr] =              self.df_in[value].apply(lambda x: '999' if np.isnan(x) else str(int(x))).map(self.coicop_dic)
+                        df_out[attr] =              self.df_in[value].apply(lambda x: '999' if np.isnan(x) else str(int(x))).map(self.coicop_dic).fillna('unknown')
                 elif attr == 'url':
                     df_out[attr] =              self.df_in[value].fillna('unknown')
-                    df_out['words_from_url'] =  self.df_in[value].apply(lambda x: self.parse_url(x))
+                    df_out['words_from_url'] =  self.df_in[value].apply(lambda x: self.parse_url(x)).fillna('unknown')
                 elif attr == 'categ':
-                    df_out[attr] =              self.df_in[value].apply(lambda x: str(x).replace('|',' ').replace('/',' '))
+                    df_out[attr] =              self.df_in[value].apply(lambda x: str(x).replace('|',' ').replace('/',' ')).fillna('unknown')
                 else: 
                     df_out[attr] =              self.df_in[value].fillna('unknown')
 
