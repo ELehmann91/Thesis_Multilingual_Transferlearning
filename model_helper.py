@@ -248,8 +248,11 @@ class text_to_embed(object):
                   emb = self.embed_de[words[w]]
               elif la == 'fr':
                   emb = self.embed_fr[words[w]]
+              else:
+                  print(la)
+                  emb = np.zeros(self.embedding_dim)
             except:
-              emb = np.zeros(self.embedding_dim)
+                emb = np.zeros(self.embedding_dim)
             #tokens.append(tok)
             sen_embed[:,w] = emb
 
