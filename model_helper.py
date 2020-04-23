@@ -60,7 +60,7 @@ class prepare_df(object):
                     if len(self.coicop_dic) == 0:
                         df_out[attr] =              self.df_in[value]
                     else:
-                        df_out[attr] =              self.df_in[value].apply(lambda x: '999' if np.isnan(x) else str(int(x))).map(self.coicop_dic).fillna('unknown')
+                        df_out[attr] =              self.df_in[value].apply(lambda x: '999' if np.isnan(x) else str(int(x))).map(self.coicop_dic)
                 elif attr == 'url':
                     df_out[attr] =              self.df_in[value].fillna('unknown')
                     df_out['words_from_url'] =  self.df_in[value].apply(lambda x: self.parse_url(x)).fillna('unknown')
@@ -70,8 +70,92 @@ class prepare_df(object):
                     df_out[attr] =              self.df_in[value].fillna('unknown')
 
         return df_out
+        
+def prepro(line,rep_dict):
+    if isinstance(line,str):
+        text_str = ' '.join(str(t) for t in line.split())
+        text_str = text_str.lower()
+        for a,b in rep_dict.items():
+            text_str = text_str.replace(a,b)
+        text_str = re.sub('[^a-zäöüàáéèêß]+', ' ', text_str)
+    else: 
+        text_str = str(line)
+        print(line)
+    return text_str
 
+class vocab(object):
+    '''
+    takes the standardized dataframe and gives out vocab, with index, with word counts
+    the text in rows as list of string or list of token and
+    builds a subset of embedding including out ov vocabulary items
+    '''
+    def __init__(self, df_in = None):
+        self.df_in = df_in
+        self.lang = str(self.df_in['lang'].iloc[1])
+        self.df_in['text'] =  self.df_in['name'].fillna('unknown') + ' ' + \
+                              self.df_in['categ'].fillna('unknown') + ' ' + \
+                              self.df_in['prod_desc'].fillna('unknown') + ' ' + \
+                              self.df_in['words_from_url'].fillna('unknown') 
     
+    def get_list(self,preprocess=True,token=False,one_obj =False):
+        if preprocess:
+            list_str = [prepro(line,rep_dict) for line in self.df_in['text']]
+        else:
+            list_str = [line for line in self.df_in['text']]
+        if token:
+            list_str = [[word for word in line.split()] for line in list_str]
+        if one_obj:
+            temp_list = []
+            for line in list_str:
+                tokens = [word for word in line.split()]
+                temp_list.extend(tokens)
+            list_str = temp_list
+        return list_str
+
+    def get_vocab(self,index=False,count=False):
+        vocab = {}
+        i=1
+        for tok in self.get_list(one_obj=True):
+            if tok in vocab and count:
+                vocab[tok] += 1
+            else:
+                if count:
+                    vocab[tok] = 1
+                else:
+                    vocab[tok] = i
+                    i += 1
+        if index or count:
+            return {k: v for k, v in sorted(vocab.items(), key=lambda item: item[1])}
+        else: 
+            return list(vocab.keys())
+
+    def slim_embed(self,ooV=True):
+        print('lean back, this takes a while')
+        if self.lang == 'fr':
+            embed = KeyedVectors.load_word2vec_format('/content/gdrive/My Drive/Thesis_ecb_ecoicop/embeddings/wiki.fr.vec')
+        if self.lang == 'de':
+            embed = KeyedVectors.load_word2vec_format('/content/gdrive/My Drive/Thesis_ecb_ecoicop/embeddings/wiki.de.vec')
+        print('embedding loaded, length: ',len(embed.vocab))
+
+        slim_embed = {}
+        ooV = []
+        for tok in self.get_vocab():
+            if tok in embed:
+                slim_embed[tok] = embed[tok]
+            else:
+                ooV.append(tok)
+        print('embed slim',len(slim_embed),'out of vocav',len(ooV))
+        if ooV:
+            frq = self.get_vocab(count=True)
+            oov_dict={}
+            for tok in oov:
+                oov_dict[tok] = frq[tok]
+                oov_dict = {k: v for k, v in sorted(oov_dict.items(), key=lambda item: item[1], reverse=True)}
+            return slim_embed, oov_dict
+        else:
+            return slim_embed
+
+        
 def balanced_train_test_split(X,y,by):
     X_train, X_val_test, y_train, y_val_test = train_test_split(X
                                                               , y
