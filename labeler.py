@@ -39,12 +39,12 @@ class labeler:
         self.labels3.sort()
         self.labels4.sort()
         self.labels5.sort()
-        if 'cc3_labeled' in df.columns:
-            self.df_idx =  list(self.df.index[self.df['cc3_labeled'].isna()])
+        if 'cc3' in df.columns:
+            self.df_idx =  list(self.df.index[self.df['cc3'].isna()])
         else:
-            self.df['cc3_labeled'] = None
-            self.df['cc4_labeled'] = None
-            self.df['cc5_labeled'] = None
+            self.df['cc3'] = None
+            self.df['cc4'] = None
+            self.df['cc5'] = None
             self.df_idx =  list(range(0,len(self.df)))
         #random.shuffle(self.df_idx)
         self.idx =  self.df_idx[self.counter]
@@ -130,9 +130,9 @@ class labeler:
             with self.output_save:
                 #print(self.cc3,self.cc4,self.cc5)
                 #self.new_labels[self.idx] = [self.cc3,self.cc4,self.cc5]
-                self.df['cc3_labeled'].loc[self.idx] = self.cc3
-                self.df['cc4_labeled'].loc[self.idx] = self.cc4
-                self.df['cc5_labeled'].loc[self.idx] = self.cc5
+                self.df['cc3'].loc[self.idx] = self.cc3
+                self.df['cc4'].loc[self.idx] = self.cc4
+                self.df['cc5'].loc[self.idx] = self.cc5
                 self.df['labeled_by'].loc[self.idx] = self.labeled_by
             self.pick_obs()
 
