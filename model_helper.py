@@ -46,7 +46,7 @@ class prepare_df(object):
         url_str = ' '.join(w for w in url_list).lower()
         for a,b in self.rep_dict.items():
             url_str = url_str.replace(a,b)
-        url_str = re.sub('[^a-zäöüàáéèêß]+', ' ', url_str)
+        url_str = re.sub('[^a-zäöüàáâéèêßœ]+', ' ', url_str)
         url_str = ' '.join(w for w in url_str.split() if len(w)>2)
         return url_str
     
@@ -77,7 +77,7 @@ def prepro(line,rep_dict):
         text_str = text_str.lower()
         for a,b in rep_dict.items():
             text_str = text_str.replace(a,b)
-        text_str = re.sub('[^a-zäöüàáéèêß]+', ' ', text_str)
+        text_str = re.sub('[^a-zäöüàáâéèêßœ]+', ' ', text_str)
     else: 
         text_str = str(line)
         print(line)
@@ -235,7 +235,7 @@ class text_to_embed(object):
         text_str = text_str.lower()
         for a,b in self.rep_dict.items():
             text_str = text_str.replace(a,b)
-        text_str = re.sub('[^a-zäöüàáéèêß]+', ' ', text_str)
+        text_str = re.sub('[^a-zäöüàáâéèêßœ]+', ' ', text_str)
         return text_str
 
     def t2s(self,line,la):
