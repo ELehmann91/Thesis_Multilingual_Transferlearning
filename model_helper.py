@@ -125,7 +125,7 @@ class vocab(object):
                     vocab[tok] = i
                     i += 1
         if index or count:
-            return {k: v for k, v in sorted(vocab.items(), key=lambda item: item[1])}
+            return {k: v for k, v in sorted(vocab.items(), key=lambda item: item[1],reverse=True)}
         else: 
             return list(vocab.keys())
 
