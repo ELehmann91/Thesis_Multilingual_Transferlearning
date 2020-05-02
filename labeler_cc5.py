@@ -61,7 +61,7 @@ class labeler:
         for i,cc in enumerate(toless):
             self.df['sort_columns'][self.df['cc5_pred']==cc] = i   
 
-        self.df = df.sort_values('sort_columns',ascending=False) 
+        self.df = self.df.sort_values('sort_columns',ascending=False) 
 
     def get_stats(self):
         len_df = len(self.df)
