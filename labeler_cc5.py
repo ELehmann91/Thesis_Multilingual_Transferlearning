@@ -103,7 +103,7 @@ class labeler:
         display(VBox([self.text_widget1,self.text_widget2,box_auto, box_0]))
       
     def output_labels(self):
-
+        self.df = self.df.drop('Unnamed: 0', axis=1)
         return self.df
 
     def start_to_label(self):
