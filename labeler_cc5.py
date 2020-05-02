@@ -27,7 +27,7 @@ class labeler:
         self.text1 = text1
         self.text2 = text2
         self.url_str = url_str
-        self.df = df#.reset_index(drop=True) 
+        self.df = df.reset_index(drop=True) 
         self.order()
         if 'labeled_by' not in df.columns:
             self.df['labeled_by'] = None
@@ -65,7 +65,7 @@ class labeler:
 
     def get_stats(self):
         len_df = len(self.df)
-        new_lab =  len_df -len(self.df_idx) - len(self.df[self.df['cc5'].isna()==False]) *-1
+        new_lab =  (len_df -len(self.df_idx) - len(self.df[self.df['cc5'].isna()==False])) *-1
         labeled = len(self.df[self.df['cc5'].isna()==False])
         print('new labels:',new_lab)
         print('in total',labeled,'of',len_df,'labeled (',round(labeled/len_df,2)*100,'%)')
