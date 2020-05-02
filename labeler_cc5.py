@@ -121,8 +121,6 @@ class labeler:
                 self.df['cc4'].loc[self.idx] = coicop_5_4[self.cc5]
                 self.df['cc5'].loc[self.idx] = self.cc5
                 self.df['labeled_by'].loc[self.idx] = self.labeled_by
-                if self.counter % 10 == 0:
-                    self.get_stats()
             self.pick_obs()
 
         def on_button_next_clicked(b):
