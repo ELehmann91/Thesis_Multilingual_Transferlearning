@@ -11,10 +11,8 @@ pd.set_option('mode.chained_assignment', None)
 # get dict
 path ='/content/gdrive/My Drive/Thesis_ecb_ecoicop'
 
-with open(path+'/data/coicop_5_4.txt') as json_file:#
-    coicop_5_4 = json.load(json_file)
-with open(path+'/data/coicop_5_3.txt') as json_file:#
-    coicop_5_3 = json.load(json_file)
+with open(path+'/data/label_cc_dict.json') as json_file:#
+    label_cc_dict = json.load(json_file)
     
 class labeler:
     '''
@@ -27,7 +25,7 @@ class labeler:
         self.text1 = text1
         self.text2 = text2
         self.url_str = url_str
-        self.df = df.reset_index(drop=True) 
+        self.df = df#.reset_index(drop=True) 
         self.order()
         if 'labeled_by' not in df.columns:
             self.df['labeled_by'] = None
@@ -52,20 +50,22 @@ class labeler:
             
 
     def order(self):
-        toless = list(self.df['cc5'].value_counts()[-10:].index)
+        toless = list(self.df['cc5'].value_counts().index)#.sort(reverse=True)
         not_labeled = [lab for lab in self.df['cc5_pred'].value_counts().index if lab not in self.df['cc5'].value_counts().index]
         toless.extend(not_labeled)
+        print(toless)
         self.df['sort_columns'] = 0
 
-        toless = self.df['cc5'].value_counts()[-10:].index
         for i,cc in enumerate(toless):
-            self.df['sort_columns'][self.df['cc5_pred']==cc] = i   
+            if len(self.df[(self.df['cc5_pred']==cc) & (self.df['cc5'].isna())]) > 3:
+                self.df['sort_columns'][self.df['cc5_pred']==cc] = i   
 
-        self.df = self.df.sort_values('sort_columns',ascending=False) 
+        self.df = df.sort_values('sort_columns',ascending=False) 
+        self.df.index = list(range(0,len(self.df)))
 
     def get_stats(self):
         len_df = len(self.df)
-        new_lab =  (len_df -len(self.df_idx) - len(self.df[self.df['cc5'].isna()==False])) *-1
+        new_lab = (len_df -len(self.df_idx) - len(self.df[self.df['cc5'].isna()==False]))*-1
         labeled = len(self.df[self.df['cc5'].isna()==False])
         print('new labels:',new_lab)
         print('in total',labeled,'of',len_df,'labeled (',round(labeled/len_df,2)*100,'%)')
@@ -93,9 +93,7 @@ class labeler:
         self.text_widget2.value = self.text_trans
         self.dd_cc5.value = self.cc5
 
-
     def display_all(self):
-
         items_auto = [self.dd_cc5,self.dd_cc5_out]
         items_0 = [self.button_next, self.output_next,self.button_save, self.output_save,self.button_link, self.output_link]
         box_auto = Box(children=items_auto, layout=Layout(display='flex',flex_flow='column', align_items='stretch', align_content='center', width='80%'))
