@@ -11,8 +11,11 @@ pd.set_option('mode.chained_assignment', None)
 # get dict
 path ='/content/gdrive/My Drive/Thesis_ecb_ecoicop'
 
-with open(path+'/data/label_cc_dict.json') as json_file:#
-    label_cc_dict = json.load(json_file)
+with open(path+'/data/coicop_5_4.txt') as json_file:#
+    coicop_5_4 = json.load(json_file)
+
+with open(path+'/data/coicop_5_3.txt') as json_file:#
+    coicop_5_3 = json.load(json_file)
     
 class labeler:
     '''
