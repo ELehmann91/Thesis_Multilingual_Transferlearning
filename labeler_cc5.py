@@ -72,7 +72,7 @@ class labeler:
             if len(self.df[(self.df[self.cc5_pred_col]==cc) & (self.df['cc5'].isna())]) > 3:
                 self.df['sort_columns'][self.df[self.cc5_pred_col]==cc] = i   
 
-        self.df = df.sort_values('sort_columns',ascending=False) 
+        self.df = self.df.sort_values('sort_columns',ascending=False) 
         self.df.index = list(range(0,len(self.df)))
 
     def get_stats(self):
