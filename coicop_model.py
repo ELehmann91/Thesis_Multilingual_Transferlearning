@@ -55,27 +55,7 @@ class predictor:
         self.df['cc3_pred'] = None
         self.df['cc4_pred'] = None
         self.df['cc5_pred'] = None
-
-    def parse_url(self,url):
-        url_list = str(url).split('/')[3:]
-        url_str = ' '.join(w for w in url_list).lower()
-        url_str = re.sub('[^a-zäöüàáâéèêßœ]+', ' ', url_str)
-        url_str = ' '.join(w for w in url_str.split() if len(w)>2)
-        return url_str
-            
-    def prepro(self,line):
-        if isinstance(line,str):
-            text_str = ' '.join(str(t) for t in line.split())
-            text_str = text_str.lower()
-            for a,b in rep_dict.items():
-                text_str = text_str.replace(a,b)
-            text_str = re.sub('[^a-zäöüàáâéèêßœ]+', ' ', text_str)
-        else: 
-            text_str = str(line)
-            #print(line)
-        return text_str
-
-    rep_dict = {'.':' ',
+        self.rep_dict = {'.':' ',
                     ',': ' ',
                     '&': ' ',
                     '-': ' ',
@@ -94,6 +74,25 @@ class predictor:
                     ' l ':' liter ',
                     ' ml ':' liter '
                     }
+
+    def parse_url(self,url):
+        url_list = str(url).split('/')[3:]
+        url_str = ' '.join(w for w in url_list).lower()
+        url_str = re.sub('[^a-zäöüàáâéèêßœ]+', ' ', url_str)
+        url_str = ' '.join(w for w in url_str.split() if len(w)>2)
+        return url_str
+            
+    def prepro(self,line):
+        if isinstance(line,str):
+            text_str = ' '.join(str(t) for t in line.split())
+            text_str = text_str.lower()
+            for a,b in self.rep_dict.items():
+                text_str = text_str.replace(a,b)
+            text_str = re.sub('[^a-zäöüàáâéèêßœ]+', ' ', text_str)
+        else: 
+            text_str = str(line)
+            #print(line)
+        return text_str
 
     def t2s(self,line):
         #tokens = []
