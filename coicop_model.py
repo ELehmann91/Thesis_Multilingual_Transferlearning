@@ -3,6 +3,7 @@ import re
 import pickle
 import json
 import tensorflow as tf
+import numpy as np
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 # load model
 lstm_model = tf.keras.models.load_model('de_fr_mod_cc5.h5')
