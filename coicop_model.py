@@ -158,7 +158,7 @@ class predictor:
         return prediction
     
     def single_pred(self,input_t):
-        if type(input_t) == 'str:
+        if type(input_t) == 'str':
             emb = np.array(self.t2s(input_t))
             return self.model.predict(np.expand_dims(emb,axis=0))
         else:
