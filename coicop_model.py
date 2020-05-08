@@ -157,13 +157,16 @@ class predictor:
             prediction.extend(y_pred5)
         return prediction
     
-    def single_pred(self,emb):
-        if len(emb.shape) == 2:
+    def single_pred(self,input_t):
+        if type(input_t) == 'str:
+            emb = np.array(self.t2s(input_t))
             return self.model.predict(np.expand_dims(emb,axis=0))
-        elif len(emb.shape) == 3:
-            return new_model.predict(emb)
         else:
-            print('wrong shape')
+            try:
+                emb = np.array([self.t2s(t) for t in input_t])
+                return new_model.predict(emb)
+            except::
+                print('ErROr eRRoR')
         
     def get_df(self):
         return self.df
