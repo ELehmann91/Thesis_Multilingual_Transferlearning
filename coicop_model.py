@@ -42,6 +42,9 @@ class predictor:
         if self.lang == 'fr':
             print('using french embeddings')
             self.emb = pickle.load(open('data/fr_slim_embed.p', "rb" ) )
+        if self.lang == 'de':
+            print('using german embeddings')
+            self.emb = pickle.load(open('de_slim_embed.p', "rb" ) )   
         self.model = model
         self.label_dict3 = label_dict3
         self.label_dict4 = label_dict4
@@ -171,3 +174,10 @@ class predictor:
     def get_df(self):
         return self.df
 
+    def get_predict_function(self):
+        def predict_func(texts):
+            text_emb = np.array([self.t2s(t) for t in texts])
+            y_pred5 = self.model.predict(text_emb)
+            return y_pred5[:,:]
+        return predict_func
+    
