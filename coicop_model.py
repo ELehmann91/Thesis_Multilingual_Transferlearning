@@ -159,9 +159,9 @@ class predictor:
     
     def single_pred(self,emb):
         if len(emb.shape) == 2:
-            return = self.model.predict(np.expand_dims(emb,axis=0))
+            return self.model.predict(np.expand_dims(emb,axis=0))
         elif len(emb.shape) == 3:
-            return = new_model.predict(emb)
+            return new_model.predict(emb)
         else:
             print('wrong shape')
         
