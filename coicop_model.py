@@ -154,7 +154,7 @@ class predictor:
             #print(text_pre)
             text_emb = np.array([self.t2s(t) for t in text])
             y_pred5 = self.model.predict(text_emb)
-            prediction.append(y_pred5)
+            prediction.extend(y_pred5)
         return prediction
     
         
