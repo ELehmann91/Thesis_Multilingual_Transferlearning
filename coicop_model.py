@@ -132,9 +132,9 @@ class predictor:
             self.df['cc4_pred'][fr_:to_] = text_prd[1]
             self.df['cc5_pred'][fr_:to_] = text_prd[2]
                                                     
-        def test_performance(self,label_col):
-            df_acc = self.df[self.df[label_col].isna()==False]
-            print('number of observation (labeled / all):',len(df_acc),'/',len(self.df),'consistency ',accuracy_score(df_acc['cc5_pred'],df_acc[label_col]))
+    def test_performance(self,label_col):
+        df_acc = self.df[self.df[label_col].isna()==False]
+        print('number of observation (labeled / all):',len(df_acc),'/',len(self.df),'consistency ',accuracy_score(df_acc['cc5_pred'],df_acc[label_col]))
 
                 
     def predict_proba(self):
