@@ -130,16 +130,14 @@ class predictor:
             text_prd = self.emb_to_pred(text_emb)
             self.df['cc3_pred'][fr_:to_] = text_prd[0]
             self.df['cc4_pred'][fr_:to_] = text_prd[1]
-            self.df['cc5_pred'][fr_:to_] = text_prd[2
+            self.df['cc5_pred'][fr_:to_] = text_prd[2]
                                                     
-        try:
-            df_acc = self.df[self.df[label_cat5].isna()==False]
-            print()
-            print('number of observation (labeled / all):',len(df_acc),'/',len(self.df),'consistency ',accuracy_score(df_acc['cc5_pred'],df_acc['cc5']))
-        except:
-            print()
+        def test_performance(self,label_col):
+            df_acc = self.df[self.df[label_col].isna()==False]
+            print('number of observation (labeled / all):',len(df_acc),'/',len(self.df),'consistency ',accuracy_score(df_acc['cc5_pred'],df_acc[label_col]))
+
                 
-      def predict_proba(self):
+     def predict_proba(self):
         prediction = []
         resid = self.total % self.batch
         epochs = self.total // self.batch
