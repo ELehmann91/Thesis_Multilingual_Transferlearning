@@ -130,15 +130,32 @@ class predictor:
             text_prd = self.emb_to_pred(text_emb)
             self.df['cc3_pred'][fr_:to_] = text_prd[0]
             self.df['cc4_pred'][fr_:to_] = text_prd[1]
-            self.df['cc5_pred'][fr_:to_] = text_prd[2]
+            self.df['cc5_pred'][fr_:to_] = text_prd[2
+                                                    
+        try:
+            df_acc = self.df[self.df[label_cat5].isna()==False]
+            print()
+            print('number of observation (labeled / all):',len(df_acc),'/',len(self.df),'consistency ',accuracy_score(df_acc['cc5_pred'],df_acc['cc5']))
+        except:
+            print()
+                
+      def predict_proba(self):
+        prediction = []
+        resid = self.total % self.batch
+        epochs = self.total // self.batch
+        for i in tqdm(range(0,epochs)):
+            fr_ = i*self.batch
+            to_ = (i+1)*self.batch + (i+1==epochs) * resid
+            text = self.df['text'][fr_:to_]
+            #text_pre = [str(self.prepro(t)) for t in text]
+            #print(text_pre)
+            text_emb = np.array([self.t2s(t) for t in text])
+            text_prd = self.emb_to_pred(text_emb)
+            y_pred5 = self.model.predict(embeded)
+            prediction.append(y_pred5)
+        return prediction
+    
         
-        if self.label_cat5 is not None:
-            try:
-                df_acc = self.df[self.df[label_cat5].isna()==False]
-                print()
-                print('number of observation (labeled / all):',len(df_acc),'/',len(self.df),'consistency ',accuracy_score(df_acc['cc5_pred'],df_acc['cc5']))
-            except:
-                print()
     def get_df(self):
         return self.df
 
