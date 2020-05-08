@@ -137,7 +137,7 @@ class predictor:
             print('number of observation (labeled / all):',len(df_acc),'/',len(self.df),'consistency ',accuracy_score(df_acc['cc5_pred'],df_acc[label_col]))
 
                 
-     def predict_proba(self):
+    def predict_proba(self):
         prediction = []
         resid = self.total % self.batch
         epochs = self.total // self.batch
