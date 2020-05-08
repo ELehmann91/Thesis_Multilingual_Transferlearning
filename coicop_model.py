@@ -148,8 +148,7 @@ class predictor:
             #text_pre = [str(self.prepro(t)) for t in text]
             #print(text_pre)
             text_emb = np.array([self.t2s(t) for t in text])
-            text_prd = self.emb_to_pred(text_emb)
-            y_pred5 = self.model.predict(embeded)
+            y_pred5 = self.model.predict(text_emb)
             prediction.append(y_pred5)
         return prediction
     
