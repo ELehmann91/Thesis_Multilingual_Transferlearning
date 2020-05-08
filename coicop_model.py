@@ -165,7 +165,7 @@ class predictor:
             try:
                 emb = np.array([self.t2s(t) for t in input_t])
                 return new_model.predict(emb)
-            except::
+            except:
                 print('ErROr eRRoR')
         
     def get_df(self):
