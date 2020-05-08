@@ -137,6 +137,10 @@ class predictor:
         acc = round(accuracy_score(df_acc['cc5_pred'],df_acc[label_col]),4) *100
         print('number of observation (labeled / all):',len(df_acc),'/',len(self.df),'consistency ',acc,'%')
 
+    def confusion_matrix(self,label_col):
+        df_acc = self.df[self.df[label_col].isna()==False]
+        print(classification_report(df_acc['cc5_pred'], df_acc[label_col]))
+        
                 
     def predict_proba(self):
         prediction = []
