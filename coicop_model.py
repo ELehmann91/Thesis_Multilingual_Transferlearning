@@ -194,5 +194,5 @@ class predictor:
         sampler = MaskingTextSampler(replacement="UNK", max_replace=0.7, token_pattern=None, bow=False)
         te = TextExplainer(sampler=sampler, position_dependent=True, random_state=42)
         te.fit(text, predict_func)
-        return  te.explain_prediction(target_names=labels5, top_targets=3) 
+        return  te.explain_prediction(target_names=self.labels5, top_targets=3) 
     
