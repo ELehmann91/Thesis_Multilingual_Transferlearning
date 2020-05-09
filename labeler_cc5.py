@@ -45,6 +45,9 @@ class labeler:
         self.labels5.sort()
         if 'cc5' in df.columns:
             self.df_idx =  list(self.df.index[self.df['cc5'].isna()])
+            if len(self.df_idx) == 0:
+                print('all products labeled')
+                self.df_idx =  list(range(0,len(self.df)))
         else:
             self.df['cc3'] = None
             self.df['cc4'] = None
