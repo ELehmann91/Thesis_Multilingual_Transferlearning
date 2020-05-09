@@ -190,7 +190,6 @@ class predictor:
         if text is None:
             n = random.randint(0, len(self.df)
             text = self.df['text'].iloc[n]
-
         predict_func = self.get_predict_function()
         sampler = MaskingTextSampler(replacement="UNK", max_replace=0.7, token_pattern=None, bow=False)
         te = TextExplainer(sampler=sampler, position_dependent=True, random_state=42)
