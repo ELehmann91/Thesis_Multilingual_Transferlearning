@@ -186,13 +186,13 @@ class predictor:
             return y_pred5[:,:]
         return predict_func
     
-    def tell_me_why(self,text=None):
+    def tell_me_why(self,text=None)):
         if text is None:
-            n = random.randint(0, len(self.df)
+            n = random.randint(0, len(self.df))
             text = self.df['text'].iloc[n]
         predict_func = self.get_predict_function()
         sampler = MaskingTextSampler(replacement="UNK", max_replace=0.7, token_pattern=None, bow=False)
         te = TextExplainer(sampler=sampler, position_dependent=True, random_state=42)
         te.fit(text, predict_func)
-        return  te.explain_prediction(target_names=labels5, top_targets=3) #te, self.labels5
-        #print(te.explain_prediction(target_names=labels5, top_targets=3))
+        return  te.explain_prediction(target_names=labels5, top_targets=3) 
+    
