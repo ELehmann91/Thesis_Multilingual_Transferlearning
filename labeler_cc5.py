@@ -41,7 +41,8 @@ class labeler:
 
         self.order()
         
-        self.labels5 = list(coicop_5_4.keys())
+        self.labels5 = list(coicop_5_4.keys())[:74]
+        self.labels5.append('9999_Non-Food')
         self.labels5.sort()
         if 'cc5' in df.columns:
             self.df_idx =  list(self.df.index[self.df['cc5'].isna()])
