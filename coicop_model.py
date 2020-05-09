@@ -6,6 +6,7 @@ import tensorflow as tf
 import numpy as np
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 import json
+import random
 from eli5.lime import TextExplainer
 from eli5.lime.samplers import MaskingTextSampler
 
@@ -185,9 +186,10 @@ class predictor:
             return y_pred5[:,:]
         return predict_func
     
-    def explain(self,n=5,text=None):
+    def explain(self,text=None):
         if text is None:
-            text = df['text'].iloc[n]
+            n = random.randint(0, len(self.df)
+            text = self.df['text'].iloc[n]
 
         predict_func = self.get_predict_function()
         sampler = MaskingTextSampler(replacement="UNK", max_replace=0.7, token_pattern=None, bow=False)
