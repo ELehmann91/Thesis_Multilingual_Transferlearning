@@ -186,7 +186,7 @@ class predictor:
             return y_pred5[:,:]
         return predict_func
     
-    def tell_me_why(self,text=None)):
+    def tell_me_why(self,text=None):
         if text is None:
             n = random.randint(0, len(self.df))
             text = self.df['text'].iloc[n]
