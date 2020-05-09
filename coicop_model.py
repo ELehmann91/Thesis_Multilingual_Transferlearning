@@ -5,8 +5,6 @@ import json
 import tensorflow as tf
 import numpy as np
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
-
-pip install eli5
 import json
 from eli5.lime import TextExplainer
 from eli5.lime.samplers import MaskingTextSampler
