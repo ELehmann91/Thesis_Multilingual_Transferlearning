@@ -23,10 +23,9 @@ class predictor:
     '''
     Takes the text and makes beautiful predictions for coicop categories
     '''
-    def __init__(self,df,name_col,cat_col,url_col,lang,label_cat5,embedding_dim=300,label_dict3=coicop_5_3,label_dict4=coicop_5_4
+    def __init__(self,df,name_col,cat_col,url_col,lang,embedding_dim=300,label_dict3=coicop_5_3,label_dict4=coicop_5_4
                  ,model=lstm_model,batchsize=100):
         self.embedding_dim = embedding_dim
-        self.label_cat5 = label_cat5
         self.df = df
         if url_col is not None:
             self.df['url_text'] = self.df[url_col].apply(lambda x: (self.parse_url(x)))
