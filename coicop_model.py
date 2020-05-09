@@ -138,7 +138,7 @@ class predictor:
             self.df['cc3_pred'][fr_:to_] = text_prd[0]
             self.df['cc4_pred'][fr_:to_] = text_prd[1]
             self.df['cc5_pred'][fr_:to_] = text_prd[2]
-            print('predictions ready')
+        print('predictions ready')    
                                                     
     def test_performance(self,label_col):
         df_acc = self.df[self.df[label_col].isna()==False]
