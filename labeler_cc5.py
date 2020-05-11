@@ -38,13 +38,12 @@ class labeler:
 
         if 'labeled_by' not in df.columns:
             self.df['labeled_by'] = None
-
-        self.order()
         
         self.labels5 = list(coicop_5_4.keys())[:74]
         self.labels5.append('9999_Non-Food')
         self.labels5.sort()
         if 'cc5' in df.columns:
+            self.order()
             self.df_idx =  list(self.df.index[self.df['cc5'].isna()])
             if len(self.df_idx) == 0:
                 print('all products labeled')
@@ -54,7 +53,6 @@ class labeler:
             self.df['cc4'] = None
             self.df['cc5'] = None
             self.df_idx =  list(range(0,len(self.df)))
-
         self.idx =  self.df_idx[0]
         try:
             self.text_orig = self.df[self.text1].loc[self.idx]
