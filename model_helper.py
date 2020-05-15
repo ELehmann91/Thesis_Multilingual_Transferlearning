@@ -181,7 +181,7 @@ def balanced_train_test_split(X,y,by):
         no_ = len(df_sample)
         df_minority_upsampled = resample(df_sample, 
                                       replace=True,     # sample with replacement
-                                      n_samples=max_cat_cnt,    # to match majority class
+                                      n_samples=max_cat_cnt/2,    # to match majority class
                                       random_state=123) # reproducible results
         df_train = pd.concat([df_train, df_minority_upsampled])
     print(df_train.shape,df_val.shape,df_test.shape)
