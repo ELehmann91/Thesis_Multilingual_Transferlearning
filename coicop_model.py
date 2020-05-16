@@ -63,24 +63,35 @@ class predictor:
         self.df['cc4_pred'] = None
         self.df['cc5_pred'] = None
         self.rep_dict = {'.':' ',
-                    ',': ' ',
-                    '&': ' ',
-                    '-': ' ',
-                    '/': ' ',
-                    '%': ' percent ',
-                    '1': ' one ',
-                    '2': ' two ',
-                    '3': ' three ',
-                    '4': ' four ',
-                    '5': ' five ',
-                    '6': ' six ',
-                    '7': ' seven ',
-                    '8': ' eigth ',
-                    '9': ' nine ',
-                    '0': ' zero ',
-                    ' l ':' liter ',
-                    ' ml ':' liter '
-                    }
+                        ',': ' ',
+                        '&': ' ',
+                        '-': ' ',
+                        '/': ' ',
+                        'ü': 'ue',
+                        'ä': 'ae',
+                        'ü': 'oe',
+                        'ß': 'ss',
+                        'ê': 'e',
+                        'é': 'e',
+                        'è': 'e',
+                        'â': 'a',
+                        'á': 'a',
+                        'à': 'a',
+                        'œ': 'ae',
+                        '%': ' percent ',
+                        '1': ' one ',
+                        '2': ' two ',
+                        '3': ' three ',
+                        '4': ' four ',
+                        '5': ' five ',
+                        '6': ' six ',
+                        '7': ' seven ',
+                        '8': ' eigth ',
+                        '9': ' nine ',
+                        '0': ' zero ',
+                        ' l ':' liter ',
+                        ' ml ':' liter '
+                        }
 
     def parse_url(self,url):
         url_list = str(url).split('/')[3:]
