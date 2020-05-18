@@ -48,7 +48,7 @@ class predictor:
             self.emb = pickle.load(open('data/fr_slim_embed.p', "rb" ) )
         if self.lang == 'de':
             print('using german embeddings')
-            self.emb = pickle.load(open('data/de_slim_embed.p', "rb" ) )   
+            self.emb = pickle.load(open('data/de_slim_embed_ext.p', "rb" ) )   
         self.model = model
         self.label_dict3 = label_dict3
         self.label_dict4 = label_dict4
