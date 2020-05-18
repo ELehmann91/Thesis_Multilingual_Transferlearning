@@ -202,7 +202,7 @@ class predictor:
             n = random.randint(0, len(self.df))
             text = self.df['text'].iloc[n]
             print('prediction',self.df['cc5_pred'].iloc[n])
-            if label_col is not None:
+            if label_col is not None and label_col in self.df.columns:
                 print('label',self.df[label_col].iloc[n])
         predict_func = self.get_predict_function()
         sampler = MaskingTextSampler(replacement="UNK", max_replace=0.7, token_pattern=None, bow=False)
