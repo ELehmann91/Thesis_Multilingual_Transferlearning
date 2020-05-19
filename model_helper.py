@@ -156,7 +156,7 @@ class vocab(object):
             return slim_embed
 
         
-def balanced_train_test_split(X,y,by):
+def balanced_train_test_split(X,y,by,n=.8):
     X_train, X_val_test, y_train, y_val_test = train_test_split(X
                                                               , y
                                                               , test_size=0.3
@@ -181,7 +181,7 @@ def balanced_train_test_split(X,y,by):
         no_ = len(df_sample)
         df_minority_upsampled = resample(df_sample, 
                                       replace=True,     # sample with replacement
-                                      n_samples=int(max_cat_cnt/2),    # to match majority class
+                                      n_samples=int(max_cat_cnt*n),    # to match majority class
                                       random_state=123) # reproducible results
         df_train = pd.concat([df_train, df_minority_upsampled])
     print(df_train.shape,df_val.shape,df_test.shape)
