@@ -1,0 +1,7 @@
+{
+    "Reinforcement Learning Energy Leaderboard" : {
+        "filter" : null,
+        "description" : "Reinforcement Learning Experiments, tracking efficiency versus performance of various implementations and environments. Environments listed on the left. Click on them to see algorithmic performance (and click further to get details on hardware used, among other details).<br/><br/> <div class=\"alert alert-success fade in\"> <strong>Call for contributions!</strong> We're always looking for more data to find the most efficient settings! Please <a href=\"https://github.com/Breakend/RL-Energy-Leaderboard\">send us a pull request with your runs!</a></div>",
+        "executive_summary_variables" : ["total_power", "exp_len_hours", "cpu_hours", "gpu_hours", "estimated_carbon_impact_kg"]
+        }
+}
