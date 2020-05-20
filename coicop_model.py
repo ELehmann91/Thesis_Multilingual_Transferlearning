@@ -200,12 +200,15 @@ class predictor:
     
     def tell_me_why(self,text=None,categ=None):
         if text is None:
-            if categ is not None and categ in self.df.columns:
-                n = random.randint(0, len(self.df[self.df[cat_col]==categ]))
-                text = self.df['text'][self.df[cat_col]==categ].iloc[n]
-                print('prediction',self.df['cc5_pred'][self.df[cat_col]==categ].iloc[n])
+            if categ is not None:
+                if len(self.df[self.df['cc5_pred']==categ]) == 0:
+                    print('no prediction for',categ)
+                    break
+                n = random.randint(0, len(self.df[self.df['cc5_pred']==categ]))
+                text = self.df['text'][self.df['cc5_pred']==categ].iloc[n]
+                print('prediction',self.df['cc5_pred'][self.df['cc5_pred']==categ].iloc[n])
                 if self.label_col is not None and self.label_col in self.df.columns:
-                    print('label',self.df[self.label_col][self.df[cat_col]==categ].iloc[n])
+                    print('label',self.df[self.label_col][self.df['cc5_pred']==categ].iloc[n])
             else:
                 n = random.randint(0, len(self.df))
                 text = self.df['text'].iloc[n]
