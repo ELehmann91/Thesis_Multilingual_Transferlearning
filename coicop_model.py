@@ -198,13 +198,20 @@ class predictor:
             return y_pred5[:,:]
         return predict_func
     
-    def tell_me_why(self,text=None):
+    def tell_me_why(self,text=None,categ=None):
         if text is None:
-            n = random.randint(0, len(self.df))
-            text = self.df['text'].iloc[n]
-            print('prediction',self.df['cc5_pred'].iloc[n])
-            if self.label_col is not None and self.label_col in self.df.columns:
-                print('label',self.df[self.label_col].iloc[n])
+            if categ is None and categ in self.df.columns:
+                n = random.randint(0, len(self.df[self.df[cat_col]==categ]))
+                text = self.df['text'][self.df[cat_col]==categ].iloc[n]
+                print('prediction',self.df['cc5_pred'][self.df[cat_col]==categ].iloc[n])
+                if self.label_col is not None and self.label_col in self.df.columns:
+                    print('label',self.df[self.label_col][self.df[cat_col]==categ].iloc[n])
+            else:
+                n = random.randint(0, len(self.df))
+                text = self.df['text'].iloc[n]
+                print('prediction',self.df['cc5_pred'].iloc[n])
+                if self.label_col is not None and self.label_col in self.df.columns:
+                    print('label',self.df[self.label_col].iloc[n])
         predict_func = self.get_predict_function()
         sampler = MaskingTextSampler(replacement="UNK", max_replace=0.7, token_pattern=None, bow=False)
         te = TextExplainer(sampler=sampler, position_dependent=True, random_state=42)
