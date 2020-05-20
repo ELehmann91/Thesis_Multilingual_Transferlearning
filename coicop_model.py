@@ -203,7 +203,7 @@ class predictor:
             if categ is not None:
                 if len(self.df[self.df['cc5_pred']==categ]) == 0:
                     print('no prediction for',categ)
-                    break
+                    
                 n = random.randint(0, len(self.df[self.df['cc5_pred']==categ]))
                 text = self.df['text'][self.df['cc5_pred']==categ].iloc[n]
                 print('prediction',self.df['cc5_pred'][self.df['cc5_pred']==categ].iloc[n])
