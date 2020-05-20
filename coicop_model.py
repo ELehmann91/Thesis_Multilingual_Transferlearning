@@ -23,10 +23,11 @@ class predictor:
     '''
     Takes the text and makes beautiful predictions for coicop categories
     '''
-    def __init__(self,df,name_col,cat_col,url_col,lang,embedding_dim=300,label_dict3=coicop_5_3,label_dict4=coicop_5_4
+    def __init__(self,df,name_col,cat_col,url_col,label_col,lang,embedding_dim=300,label_dict3=coicop_5_3,label_dict4=coicop_5_4
                  ,model=lstm_model,batchsize=100):
         self.embedding_dim = embedding_dim
         self.df = df
+        self.label_col = label_col
         if url_col is not None:
             self.df['url_text'] = self.df[url_col].fillna('unknown').apply(lambda x: (self.parse_url(x)))
 
@@ -151,14 +152,14 @@ class predictor:
             self.df['cc5_pred'][fr_:to_] = text_prd[2]
         print('predictions ready')    
                                                     
-    def test_performance(self,label_col):
-        df_acc = self.df[self.df[label_col].isna()==False]
-        acc = round(accuracy_score(df_acc['cc5_pred'],df_acc[label_col]),4) *100
+    def test_performance(self):
+        df_acc = self.df[self.df[self.label_col].isna()==False]
+        acc = round(accuracy_score(df_acc['cc5_pred'],df_acc[self.label_col]),4) *100
         print('number of observation (labeled / all):',len(df_acc),'/',len(self.df),'consistency ',acc,'%')
 
-    def confusion_matrix(self,label_col):
-        df_acc = self.df[self.df[label_col].isna()==False]
-        print(classification_report(df_acc['cc5_pred'], df_acc[label_col]))
+    def confusion_matrix(self,self.label_col):
+        df_acc = self.df[self.df[self.label_col].isna()==False]
+        print(classification_report(df_acc['cc5_pred'], df_acc[self.label_col]))
         
                 
     def predict_proba(self):
@@ -197,13 +198,13 @@ class predictor:
             return y_pred5[:,:]
         return predict_func
     
-    def tell_me_why(self,text=None,label_col=None):
+    def tell_me_why(self,text=None):
         if text is None:
             n = random.randint(0, len(self.df))
             text = self.df['text'].iloc[n]
             print('prediction',self.df['cc5_pred'].iloc[n])
-            if label_col is not None and label_col in self.df.columns:
-                print('label',self.df[label_col].iloc[n])
+            if self.label_col is not None and self.label_col in self.df.columns:
+                print('label',self.df[self.label_col].iloc[n])
         predict_func = self.get_predict_function()
         sampler = MaskingTextSampler(replacement="UNK", max_replace=0.7, token_pattern=None, bow=False)
         te = TextExplainer(sampler=sampler, position_dependent=True, random_state=42)
