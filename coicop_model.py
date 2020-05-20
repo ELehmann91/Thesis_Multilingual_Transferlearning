@@ -200,7 +200,7 @@ class predictor:
     
     def tell_me_why(self,text=None,categ=None):
         if text is None:
-            if categ is None and categ in self.df.columns:
+            if categ is not None and categ in self.df.columns:
                 n = random.randint(0, len(self.df[self.df[cat_col]==categ]))
                 text = self.df['text'][self.df[cat_col]==categ].iloc[n]
                 print('prediction',self.df['cc5_pred'][self.df[cat_col]==categ].iloc[n])
