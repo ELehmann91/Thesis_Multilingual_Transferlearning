@@ -29,10 +29,12 @@ class labeler:
         self.text1 = text1
         if text2 in self.df.columns:
             self.text2 = text2
+            self.df[text2] = self.df[text2].fillna('unknown')
         else:
             self.text2 = text1
         if url_str in self.df.columns:
             self.url_str = url_str
+            self.df[url_str] = self.df[url_str].fillna('unknown')
         else:
             self.url_str = text1
 
