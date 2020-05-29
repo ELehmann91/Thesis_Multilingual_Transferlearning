@@ -131,12 +131,13 @@ class predictor:
 
     def emb_to_pred(self,embeded,prd=False):
         y_pred5 = self.model.predict(embeded)
-        y_pred5_arg = y_pred5.max(axis=1)
+        y_pred5_arg = y_pred5.argmax(axis=1)
+        y_pred5_max = y_pred5.max(axis=1)
         y_pr_lab5 = [self.labels5[y] for y in y_pred5_arg]
         y_pr_lab3 = [self.label_dict3[cc5] for cc5 in y_pr_lab5]
         y_pr_lab4 = [self.label_dict4[cc5] for cc5 in y_pr_lab5]
         if prd:
-            return y_pr_lab3,y_pr_lab4,y_pr_lab5, y_pred5, y_pred5_arg
+            return y_pr_lab3,y_pr_lab4,y_pr_lab5, y_pred5, y_pred5_max
         else:
             return y_pr_lab3,y_pr_lab4,y_pr_lab5
 
