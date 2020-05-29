@@ -176,8 +176,8 @@ class predictor:
             text_emb = np.array([self.t2s(t) for t in text])
             y_pred5 = self.model.predict(text_emb)
             prediction.extend(y_pred5)
-            df_probs = pd.DataFrame(prediction,columns=self.labels5,index=self.df.index) 
-            df_comb = self.df.join(df_probs)
+        df_probs = pd.DataFrame(prediction,columns=self.labels5,index=self.df.index) 
+        df_comb = self.df.join(df_probs)
         return df_comb
     
     def single_pred(self,input_t):
