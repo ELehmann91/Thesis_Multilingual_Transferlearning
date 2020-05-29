@@ -176,7 +176,8 @@ class predictor:
             y_pred5 = self.model.predict(text_emb)
             prediction.extend(y_pred5)
             df_probs = pd.DataFrame(prediction,columns=self.labels5,index=self.df.index) 
-        return df_probs
+            df_comb = self.df.join(df_probs)
+        return df_comb
     
     def single_pred(self,input_t):
         if type(input_t) == 'str':
