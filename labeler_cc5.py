@@ -89,7 +89,7 @@ class labeler:
 
     def order(self):
         self.df = self.df.sort_values([self.cc5_ord],ascending=False)
-        self.df_idx = self.df[df['cc5'].isna()].index
+        self.df_idx = self.df[self.df['cc5'].isna()].index
         if len(self.df_idx) == 0:
                 print('everything labeled')
                 self.df_idx =  list(range(0,len(self.df)))
