@@ -129,13 +129,16 @@ class predictor:
         sen_embed = np.swapaxes(sen_embed,0,1)
         return sen_embed #np.array(tokens)
 
-    def emb_to_pred(self,embeded):
+    def emb_to_pred(self,embeded,prd=False):
         y_pred5 = self.model.predict(embeded)
         y_pred5_arg = y_pred5.argmax(axis=1)
         y_pr_lab5 = [self.labels5[y] for y in y_pred5_arg]
         y_pr_lab3 = [self.label_dict3[cc5] for cc5 in y_pr_lab5]
         y_pr_lab4 = [self.label_dict4[cc5] for cc5 in y_pr_lab5]
-        return y_pr_lab3,y_pr_lab4,y_pr_lab5
+        if prd:
+            return y_pr_lab3,y_pr_lab4,y_pr_lab5, y_pred5, y_pred5_arg
+        else:
+            return y_pr_lab3,y_pr_lab4,y_pr_lab5
 
     def predict(self):
         resid = self.total % self.batch
@@ -165,6 +168,7 @@ class predictor:
                 
     def predict_proba(self):
         prediction = []
+        max_score = []
         resid = self.total % self.batch
         epochs = self.total // self.batch
         for i in tqdm(range(0,epochs)):
@@ -174,9 +178,16 @@ class predictor:
             #text_pre = [str(self.prepro(t)) for t in text]
             #print(text_pre)
             text_emb = np.array([self.t2s(t) for t in text])
-            y_pred5 = self.model.predict(text_emb)
-            prediction.extend(y_pred5)
+            text_prd = self.emb_to_pred(text_emb,True)
+            self.df['cc3_pred'][fr_:to_] = text_prd[0]
+            self.df['cc4_pred'][fr_:to_] = text_prd[1]
+            self.df['cc5_pred'][fr_:to_] = text_prd[2]
+            #probabilities
+            #y_pred5 = self.model.predict(text_emb)
+            prediction.extend(text_prd[3])
+            max_score.extend(text_prd[4])
         df_probs = pd.DataFrame(prediction,columns=self.labels5,index=self.df.index) 
+        df_probs['max_score'] = max_score
         df_comb = self.df.join(df_probs)
         return df_comb
     
