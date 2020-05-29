@@ -175,7 +175,8 @@ class predictor:
             text_emb = np.array([self.t2s(t) for t in text])
             y_pred5 = self.model.predict(text_emb)
             prediction.extend(y_pred5)
-        return prediction
+            df_probs = pd.DataFrame(prediction,columns=self.labels5,index=self.df.index) 
+        return df_probs
     
     def single_pred(self,input_t):
         if type(input_t) == 'str':
