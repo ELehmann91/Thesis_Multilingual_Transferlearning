@@ -6,6 +6,8 @@ from  ipywidgets import Layout, HBox, VBox, Box
 import pandas as pd
 import json
 import sys 
+import warnings
+warnings.filterwarnings('ignore')
 pd.set_option('mode.chained_assignment', None)
 
 # get dict
@@ -88,7 +90,6 @@ class labeler:
     def order(self):
         self.df = self.df.sort_values([self.cc5_ord],ascending=False)
         self.df_idx = self.df[df['cc5'].isna()].index
-        print(len(self.df_idx))
         if len(self.df_idx) == 0:
                 print('everything labeled')
                 self.df_idx =  list(range(0,len(self.df)))
