@@ -1,6 +1,7 @@
 from tqdm import tqdm
 import re 
 import pickle
+import pandas as pd
 import json
 import tensorflow as tf
 import numpy as np
