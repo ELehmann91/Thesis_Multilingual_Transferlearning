@@ -189,6 +189,11 @@ class predictor:
             max_score.extend(text_prd[4])
         df_probs = pd.DataFrame(prediction,columns=self.labels5,index=self.df.index) 
         df_probs['max_score'] = max_score
+        
+        for col in df_probs.columns():
+            if col in self.df.columns:
+                self.df = self.df.drop(columns=[col])
+                
         df_comb = self.df.join(df_probs)
         return df_comb
     
