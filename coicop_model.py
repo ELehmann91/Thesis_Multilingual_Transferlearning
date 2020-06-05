@@ -190,7 +190,7 @@ class predictor:
         df_probs = pd.DataFrame(prediction,columns=self.labels5,index=self.df.index) 
         df_probs['max_score'] = max_score
         
-        for col in df_probs.columns():
+        for col in df_probs.columns:
             if col in self.df.columns:
                 self.df = self.df.drop(columns=[col])
                 
