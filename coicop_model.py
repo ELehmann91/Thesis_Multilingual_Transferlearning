@@ -47,7 +47,7 @@ class predictor:
         self.lang = lang
         if self.lang == 'fr':
             print('using french embeddings')
-            self.emb = pickle.load(open('data/fr_slim_embed.p', "rb" ) )
+            self.emb = pickle.load(open('data/fr_muse_align.p', "rb" ) )
         if self.lang == 'de':
             print('using german embeddings')
             self.emb = pickle.load(open('data/de_slim_embed_ext.p', "rb" ) )   
