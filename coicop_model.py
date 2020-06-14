@@ -51,6 +51,7 @@ class predictor:
         if self.lang == 'de':
             print('using german embeddings')
             self.emb = pickle.load(open('data/de_slim_embed_ext.p', "rb" ) )   
+        self.emb['<sep>'] = np.random.normal(size=300)
         self.model = model
         self.label_dict3 = label_dict3
         self.label_dict4 = label_dict4
@@ -108,7 +109,7 @@ class predictor:
             text_str = text_str.lower()
             for a,b in self.rep_dict.items():
                 text_str = text_str.replace(a,b)
-            text_str = re.sub('[^a-zäöüàáâéèêßœ]+', ' ', text_str)
+            text_str = re.sub('[^a-zäöüàáâéèêßœ<>]+', ' ', text_str)
         else: 
             text_str = str(line)
             #print(line)
