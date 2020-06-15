@@ -33,13 +33,13 @@ class predictor:
             self.df['url_text'] = self.df[url_col].fillna('unknown').apply(lambda x: (self.parse_url(x)))
 
         if cat_col is not None and url_col is not None:
-            self.df['text'] = self.df[name_col].fillna('unknown') + self.df[cat_col].fillna('unknown') + self.df['url_text']
+            self.df['text'] = self.df[name_col].fillna('unknown') + ' <sep> ' + self.df[cat_col].fillna('unknown') + ' <sep> ' + self.df['url_text']
             print('using name, category and words in url as input')
         elif cat_col is not None:
-            self.df['text'] = self.df[name_col].fillna('unknown') + self.df[cat_col].fillna('unknown') 
+            self.df['text'] = self.df[name_col].fillna('unknown') + ' <sep> ' + self.df[cat_col].fillna('unknown') 
             print('using name and category as input')
         elif url_col is not None:
-            self.df['text'] = self.df[name_col].fillna('unknown') + self.df['url_text'] 
+            self.df['text'] = self.df[name_col].fillna('unknown') + ' <sep> ' + self.df['url_text'] 
             print('using name and words in url as input')
         else:
             self.df['text'] = self.df[name_col].fillna('unknown')
