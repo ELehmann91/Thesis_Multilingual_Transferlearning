@@ -51,7 +51,9 @@ class predictor:
         if self.lang == 'de':
             print('using german embeddings')
             self.emb = pickle.load(open('data/de_slim_embed_ext.p', "rb" ) )   
-        self.emb['<sep>'] = np.random.normal(size=300)
+        self.v = np.zeros(300)
+        self.v[0]=1
+        self.emb['<sep>'] = self.v
         self.model = model
         self.label_dict3 = label_dict3
         self.label_dict4 = label_dict4
