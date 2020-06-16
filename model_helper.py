@@ -282,9 +282,10 @@ with open(path+'/data/label_cc_dict.json') as json_file:#
     label_cc_dict = json.load(json_file)
 
 # Recreate the exact same model purely from the file
-new_model = tf.keras.models.load_model(path+'/model/ger_pool_wo_emb.h5')
+new_model = tf.keras.models.load_model(path+'/model/de_fr_mod_cc5.h5')
 
 def text_to_model_input(embeded,model=new_model,label_dict=label_cc_dict):
+
     labels3 = label_dict['cc3']
     labels4 = label_dict['cc4']
     labels5 = label_dict['cc5']
