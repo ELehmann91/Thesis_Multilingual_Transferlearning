@@ -237,6 +237,10 @@ class text_to_embed(object):
         self.lang = lang
         self.embed_de = embed_de
         self.embed_fr = embed_fr
+        self.v = np.zeros(300)
+        self.v[0]=1
+        self.embed_de['<sep>'] = self.v
+        self.embed_fr['<sep>'] = self.v
         self.seq_len = seq_len
         self.rep_dict = rep_dict
         self.embedding_dim = embedding_dim
@@ -246,7 +250,7 @@ class text_to_embed(object):
         text_str = text_str.lower()
         for a,b in self.rep_dict.items():
             text_str = text_str.replace(a,b)
-        text_str = re.sub('[^a-zäöüàáâéèêßœ]+', ' ', text_str)
+        text_str = re.sub('[^a-zäöüàáâéèêßœ<>]+', ' ', text_str)
         return text_str
 
     def t2s(self,line,la):
