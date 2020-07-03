@@ -52,10 +52,10 @@ class labeler:
         self.labels5.sort()
         
         if 'cc5' in df.columns:
-            if 'cc4' in df.columns:
+            if 'cc4' not in df.columns:
                 self.df['cc4'] = None
                 
-            if 'cc3' in df.columns:
+            if 'cc3' not in df.columns:
                 self.df['cc3'] = None
                 
             self.sort_cat()
