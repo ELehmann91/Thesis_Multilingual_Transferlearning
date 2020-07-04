@@ -226,14 +226,12 @@ class text_to_embed(object):
     '''
     def __init__(self
                  , text = None
-                 , lang = None
                  , embed = None
                  , seq_len = None
                  , rep_dict = rep_dict
                  , embedding_dim=300):
                  
         self.text = text
-        self.lang = lang
         self.embed = embed
         self.v = np.zeros(300)
         self.v[0]=1
