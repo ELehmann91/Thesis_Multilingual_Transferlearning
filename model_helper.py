@@ -235,8 +235,7 @@ class text_to_embed(object):
         self.embed = embed
         self.v = np.zeros(300)
         self.v[0]=1
-        self.embed_de['<sep>'] = self.v
-        self.embed_fr['<sep>'] = self.v
+        self.embed['<sep>'] = self.v
         self.seq_len = seq_len
         self.rep_dict = rep_dict
         self.embedding_dim = embedding_dim
@@ -249,7 +248,7 @@ class text_to_embed(object):
         text_str = re.sub('[^a-zäöüàáâéèêßœ<>]+', ' ', text_str)
         return text_str
 
-    def t2s(self,line,la):
+    def t2s(self,line):
         #tokens = []
         sen_embed = np.zeros((self.embedding_dim,self.seq_len))
         words = line.split()
@@ -265,9 +264,9 @@ class text_to_embed(object):
         return sen_embed #np.array(tokens)
 
     def __iter__(self):
-        for line,la in tqdm(zip(self.text,self.lang)):
+        for line in tqdm(self.text):
             line = self.prepro(line)
-            line = self.t2s(line,la)
+            line = self.t2s(line)
             yield line
             
 
