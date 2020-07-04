@@ -50,7 +50,10 @@ class predictor:
             self.emb = pickle.load(open('data/fr_muse_align.p', "rb" ) )
         if self.lang == 'de':
             print('using german embeddings')
-            self.emb = pickle.load(open('data/de_slim_embed_ext.p', "rb" ) )   
+            self.emb = pickle.load(open('data/de_slim_embed_ext.p', "rb" ) )  
+        if self.lang == 'it':
+            print('using italian embeddings')
+            self.emb = pickle.load(open('data/it_slim_embed_ext.p', "rb" ) )  
         self.v = np.zeros(300)
         self.v[0]=1
         self.emb['<sep>'] = self.v
