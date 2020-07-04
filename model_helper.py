@@ -227,16 +227,14 @@ class text_to_embed(object):
     def __init__(self
                  , text = None
                  , lang = None
-                 , embed_de = None
-                 , embed_fr = None
+                 , embed = None
                  , seq_len = None
                  , rep_dict = rep_dict
                  , embedding_dim=300):
                  
         self.text = text
         self.lang = lang
-        self.embed_de = embed_de
-        self.embed_fr = embed_fr
+        self.embed = embed
         self.v = np.zeros(300)
         self.v[0]=1
         self.embed_de['<sep>'] = self.v
@@ -259,15 +257,9 @@ class text_to_embed(object):
         words = line.split()
         for w in range(0,self.seq_len):
             try: 
-              if la == 'de':
-                  emb = self.embed_de[words[w]]
-              elif la == 'fr':
-                  emb = self.embed_fr[words[w]]
-              else:
-                  print(la)
-                  emb = np.zeros(self.embedding_dim)
+                emb = self.embed[words[w]]
             except:
-                emb = np.zeros(self.embedding_dim)
+                emb = np.random.normal(self.embedding_dim)
             #tokens.append(tok)
             sen_embed[:,w] = emb
 
