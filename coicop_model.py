@@ -53,7 +53,7 @@ class predictor:
             self.emb = pickle.load(open('data/de_slim_embed_ext.p', "rb" ) )  
         if self.lang == 'it':
             print('using italian embeddings')
-            self.emb = pickle.load(open('data/it_slim_embed_ext.p', "rb" ) )  
+            self.emb = pickle.load(open('data/it_slim_embed.p', "rb" ) )  
         self.v = np.zeros(300)
         self.v[0]=1
         self.emb['<sep>'] = self.v
