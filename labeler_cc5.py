@@ -23,7 +23,7 @@ class labeler:
     This object takes a dataframe of web scraped product data as input and displays the prediction of unlabeld data in a dropdown. 
     The user can accept or edit the prediction and save the label.
     '''
-    def __init__(self,labeled_by, df,text1,text2,url_str,CoiCop_5_pred_col,use_probabilities=False,coicop_5_4=coicop_5_4,coicop_5_3=coicop_5_3):
+    def __init__(self,labeled_by, df,text1,text2,url_str,CoiCop_5_pred_col,use_probabilities=False,add_cat=None,coicop_5_4=coicop_5_4,coicop_5_3=coicop_5_3):
         self.counter=0
         self.df = df
         self.cc5_pred_col = CoiCop_5_pred_col
@@ -49,6 +49,9 @@ class labeler:
         
         self.labels5 = list(coicop_5_4.keys())[:74]
         self.labels5.append('9999_Non-Food')
+        if add_cat is not None:
+            for cat in add_cat:
+                 self.labels5.append(cat)
         self.labels5.sort()
         
         if 'cc5' in df.columns:
