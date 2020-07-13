@@ -68,7 +68,7 @@ class labeler:
                 self.order()
             else:
                 self.order2()
-                self.toless = self.labels5
+                
             #self.df_idx =  list(self.df.index[(self.df[self.cc5_pred_col]==self.cc5_ord) & (self.df['cc5'].isna())])
 
             
@@ -77,6 +77,7 @@ class labeler:
             self.df['cc4'] = None
             self.df['cc5'] = None
             self.df_idx =  list(range(0,len(self.df)))
+            self.toless = self.labels5
         self.idx =  self.df_idx[0]
         try:
             self.text_orig = self.df[self.text1].loc[self.idx]
