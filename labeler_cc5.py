@@ -53,7 +53,7 @@ class labeler:
             for cat in add_cat:
                  self.labels5.append(cat)
         self.labels5.sort()
-        self.cc5_ord = labels5[0]
+        self.cc5_ord = self.labels5[0]
         
         if 'cc5' in df.columns:
             if 'cc4' not in df.columns:
