@@ -68,6 +68,7 @@ class labeler:
                 self.order()
             else:
                 self.order2()
+                self.toless = self.labels5
             #self.df_idx =  list(self.df.index[(self.df[self.cc5_pred_col]==self.cc5_ord) & (self.df['cc5'].isna())])
 
             
